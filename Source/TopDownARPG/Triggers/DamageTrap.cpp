@@ -8,24 +8,26 @@
 #include "TopDownARPGCharacter.h"
 
 ADamageTrap::ADamageTrap()
-{	
+{
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
 	SphereComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	SphereComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	SphereComponent->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Overlap);
 	RootComponent = SphereComponent;
 
 	SphereComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &ADamageTrap::OnOverlap);
-	
+
 	OnOverlapParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystemComponent"));
 	OnOverlapParticle->bAutoActivate = false;
+
 }
 
 void ADamageTrap::OnOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTopDownARPG, Display, TEXT("ADamageTrap::Overlap"));
+	UE_LOG(LogTopDownARPG, Display, TEXT("ADamageTrap::Overlap Overlapping..."));
 
 	OnOverlapParticle->ActivateSystem();
 

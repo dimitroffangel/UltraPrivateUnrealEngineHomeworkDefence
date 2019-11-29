@@ -18,6 +18,7 @@ void ATopDownARPGPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
 
+	//PrintCursorPosition();
 	// keep updating the destination every tick while desired
 	if (bMoveToMouseCursor)
 	{
@@ -36,6 +37,7 @@ void ATopDownARPGPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("Ability1", IE_Pressed, this, &ATopDownARPGPlayerController::ActivateAbility1);
 	InputComponent->BindAction("Ability2", IE_Pressed, this, &ATopDownARPGPlayerController::ActivateAbility2);
+	InputComponent->BindAction("Hearthstone", IE_Pressed, this, &ATopDownARPGPlayerController::ActivateHearthstone);
 
 	// support touch devices 
 	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ATopDownARPGPlayerController::MoveToTouchLocation);
@@ -76,6 +78,20 @@ void ATopDownARPGPlayerController::ActivateAbility2()
 	}
 }
 
+void ATopDownARPGPlayerController::ActivateHearthstone()
+{
+	ATopDownARPGCharacter* PlayerCharacter = Cast<ATopDownARPGCharacter>(GetPawn());
+	if (IsValid(PlayerCharacter) == false)
+	{
+		UE_LOG(LogTopDownARPG, Error, TEXT("ATopDownARPGPlayerController::ActivateAbility1 IsValid(PlayerCharacter) == false"));
+		return;
+	}
+
+	PlayerCharacter->SetActorLocation(PlayerCharacter->SanctuaryLocation, false);
+	bMoveToMouseCursor = false;
+	UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, PlayerCharacter->GetActorLocation());
+}
+
 void ATopDownARPGPlayerController::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
@@ -85,7 +101,7 @@ void ATopDownARPGPlayerController::MoveToMouseCursor()
 {
 	if (UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled())
 	{
-		if (ATopDownARPGCharacter* MyPawn = Cast<ATopDownARPGCharacter>(GetPawn()))
+		if (ATopDownARPGCharacter * MyPawn = Cast<ATopDownARPGCharacter>(GetPawn()))
 		{
 			if (MyPawn->GetCursorToWorld())
 			{
@@ -146,4 +162,15 @@ void ATopDownARPGPlayerController::OnSetDestinationReleased()
 {
 	// clear flag to indicate we should stop updating the destination
 	bMoveToMouseCursor = false;
+}
+
+void ATopDownARPGPlayerController::PrintCursorPosition()
+{
+	if (ATopDownARPGCharacter * MyPawn = Cast<ATopDownARPGCharacter>(GetPawn()))
+	{
+		if (MyPawn->GetCursorToWorld())
+		{
+			UE_LOG(LogTopDownARPG, Display, TEXT("Cursor location is: %s"), *MyPawn->GetCursorToWorld()->GetComponentLocation().ToString());
+		}
+	}
 }

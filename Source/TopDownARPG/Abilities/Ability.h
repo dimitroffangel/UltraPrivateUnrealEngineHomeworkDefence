@@ -6,6 +6,13 @@
 #include "UObject/NoExportTypes.h"
 #include "Ability.generated.h"
 
+UENUM(BlueprintType)
+enum class EAbilityMassivenessEnum : uint8
+{
+	AME_EnvironmentalBoon UMETA(DisplayName ="Affects Environment"),
+	AME_TargetSpecific UMETA(DisplayName = "Target specific")
+};
+
 /**
  * 
  */
@@ -16,7 +23,7 @@ class UAbility : public UObject
 	
 public:
     UPROPERTY(EditAnywhere)
-    float CooldownTime = 1.f;
+    float CooldownTime = 5.f;
     UPROPERTY(EditAnywhere)
     float CooldownTimeDilation = 1.f;
 
@@ -29,7 +36,11 @@ public:
     UFUNCTION(BlueprintCallable)
     bool IsOffCooldown() const { return bIsOffCooldown; }
 
-    virtual void BeginDestroy();
+	UPROPERTY(EditAnywhere)
+	EAbilityMassivenessEnum EAbilityEnum;
+
+    virtual void BeginDestroy() override;
+
 private:
     bool bIsOffCooldown = true;
     FTimerManager* TimerManager = nullptr;

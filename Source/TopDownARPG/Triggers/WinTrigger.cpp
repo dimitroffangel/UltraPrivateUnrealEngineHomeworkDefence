@@ -15,7 +15,7 @@ AWinTrigger::AWinTrigger()
 	SphereComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &AWinTrigger::OnOverlap);
 }
 
-void AWinTrigger::OnOverlap(UPrimitiveComponent * OverlappedComp, AActor * Other, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+void AWinTrigger::OnOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ATopDownARPGGameMode* GameMode = Cast<ATopDownARPGGameMode>(GetWorld()->GetAuthGameMode());
 	if (IsValid(GameMode))

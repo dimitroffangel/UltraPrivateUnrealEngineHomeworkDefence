@@ -30,6 +30,10 @@ public:
 
 	UPROPERTY()
 	TArray<UAbility*> AbilityInstances;
+
+	UPROPERTY(EditAnywhere) //(X=-1420.000000,Y=1693.556641,Z=292.000671)
+	FVector SanctuaryLocation;
+
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))

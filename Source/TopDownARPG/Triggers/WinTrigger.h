@@ -10,8 +10,8 @@ UCLASS()
 class TOPDOWNARPG_API AWinTrigger : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	AWinTrigger();
 
 protected:

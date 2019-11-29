@@ -20,7 +20,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	void OnOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	virtual void OnOverlap(UPrimitiveComponent* OverlappedComp, AActor* Other, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(VisibleAnywhere, Category = Gameplay)
 	class USphereComponent* SphereComponent;
@@ -33,7 +33,6 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	float Damage;
-
 
 public:	
 	// Called every frame

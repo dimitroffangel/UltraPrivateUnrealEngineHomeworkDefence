@@ -13,6 +13,7 @@ void UAbility::Activate(AActor* Source)
 		return;
 	}
     TimerManager = &World->GetTimerManager();
+
     TimerManager->SetTimer(CooldownTimerHandle, this, &UAbility::OnCooldownTimerExpired, CooldownTimeDilation, true, CooldownTime);
     bIsOffCooldown = false;
 

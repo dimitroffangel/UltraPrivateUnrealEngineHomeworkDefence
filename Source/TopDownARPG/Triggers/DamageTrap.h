@@ -10,11 +10,11 @@ UCLASS()
 class TOPDOWNARPG_API ADamageTrap : public AActor
 {
 	GENERATED_BODY()
-	
-	UPROPERTY(EditAnywhere)
-	float Damage;
 
-public:	
+		UPROPERTY(EditAnywhere)
+		float Damage;
+
+public:
 	ADamageTrap();
 
 protected:

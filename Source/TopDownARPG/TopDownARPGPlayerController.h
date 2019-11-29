@@ -31,7 +31,7 @@ protected:
 
 	/** Navigate player to the current touch location. */
 	void MoveToTouchLocation(const ETouchIndex::Type FingerIndex, const FVector Location);
-	
+
 	/** Navigate player to the given world location. */
 	void SetNewMoveDestination(const FVector DestLocation);
 
@@ -40,6 +40,9 @@ protected:
 	void OnSetDestinationReleased();
 	void ActivateAbility1();
 	void ActivateAbility2();
+	void ActivateHearthstone();
+private:
+	void PrintCursorPosition();
 };
 
 

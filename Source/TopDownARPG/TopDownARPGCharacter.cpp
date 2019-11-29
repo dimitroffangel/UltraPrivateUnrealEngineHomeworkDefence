@@ -59,6 +59,9 @@ ATopDownARPGCharacter::ATopDownARPGCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
 	OnTakeAnyDamage.AddDynamic(this, &ATopDownARPGCharacter::TakeAnyDamage);
+
+	//(X = -1420.000000, Y = 1693.556641, Z = 292.000671)
+	SanctuaryLocation = FVector(-1420.f, 1690.f, 290.f);
 }
 
 void ATopDownARPGCharacter::BeginPlay()
@@ -75,13 +78,13 @@ void ATopDownARPGCharacter::BeginPlay()
 
 void ATopDownARPGCharacter::Tick(float DeltaSeconds)
 {
-    Super::Tick(DeltaSeconds);
+	Super::Tick(DeltaSeconds);
 
 	if (CursorToWorld != nullptr)
 	{
 		if (UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled())
 		{
-			if (UWorld* World = GetWorld())
+			if (UWorld * World = GetWorld())
 			{
 				FHitResult HitResult;
 				FCollisionQueryParams Params(NAME_None, FCollisionQueryParams::GetUnknownStatId());
@@ -93,7 +96,7 @@ void ATopDownARPGCharacter::Tick(float DeltaSeconds)
 				CursorToWorld->SetWorldLocationAndRotation(HitResult.Location, SurfaceRotation);
 			}
 		}
-		else if (APlayerController* PC = Cast<APlayerController>(GetController()))
+		else if (APlayerController * PC = Cast<APlayerController>(GetController()))
 		{
 			FHitResult TraceHitResult;
 			PC->GetHitResultUnderCursor(ECC_Visibility, true, TraceHitResult);

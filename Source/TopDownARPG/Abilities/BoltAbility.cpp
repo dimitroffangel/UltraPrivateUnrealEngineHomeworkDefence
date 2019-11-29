@@ -2,8 +2,8 @@
 
 
 #include "BoltAbility.h"
-#include "Projectiles/Projectile.h"
 #include "TopDownARPG.h"
+#include "Projectiles/Projectile.h"
 #include "Engine/World.h"
 
 void UBoltAbility::Activate(AActor* Source)
@@ -23,6 +23,7 @@ void UBoltAbility::Activate(AActor* Source)
 	FVector SpawnLocation = Source->GetActorLocation() + Source->GetActorForwardVector() * 100.0f;
 
 	AActor* Projectile = World->SpawnActor<AActor>(ProjectileClass, SpawnLocation, Source->GetActorRotation(), SpawnParameters);
+
 	if (IsValid(Projectile) == false)
 	{
 		UE_LOG(LogTopDownARPG, Error, TEXT("UBoltAbility::Activate IsValid(Projectile) == false"));
